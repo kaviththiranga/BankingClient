@@ -56,6 +56,12 @@
     <Compile Include="ConcurrencyDemo.Designer.cs">
       <DependentUpon>ConcurrencyDemo.cs</DependentUpon>
     </Compile>
+    <Compile Include="FullView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FullView.Designer.cs">
+      <DependentUpon>FullView.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     </Compile>
     <EmbeddedResource Include="ConcurrencyDemo.resx">
       <DependentUpon>ConcurrencyDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FullView.resx">
+      <DependentUpon>FullView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

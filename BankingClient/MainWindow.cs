@@ -37,7 +37,7 @@ namespace BankingClient
             {
                 currentCard = new DebitCard(cardNo.Text, pinNo.Text);
                 currentCard.setAccounts(server.AccountService.getAccountsByCard(cardNo.Text));
-                MyAccounts myAccounts = new MyAccounts(this);
+                FullView myAccounts = new FullView(this);
                 this.Hide();
                 myAccounts.Show();
             }

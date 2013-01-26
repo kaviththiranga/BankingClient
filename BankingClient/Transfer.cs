@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ConcurrentBankingServer.Model;
+using System.Threading;
 
 namespace BankingClient
 {
@@ -46,15 +47,17 @@ namespace BankingClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double amount;
-            try
-            {
+            double amount = Double.Parse(textBox1.Text);
+            String ac1 = (String)comboBox1.SelectedItem;
+            String ac2 = (String)comboBox2.SelectedItem;
+            Thread thread = new Thread(()=> transferMoney(amount,ac1,ac2));
+            thread.Start();
+        }
+
+        private void transferMoney(double amount, String ac1, String ac2)
+        {
+
                 DebitCard card = main.currentCard;
-
-                amount = Double.Parse(textBox1.Text);
-                String ac1 = (String) comboBox1.SelectedItem;
-                String ac2 = (String) comboBox2.SelectedItem;
-
                 Transaction tr1 = new Transaction("debit", amount);
                 Transaction tr2 = new Transaction("credit", amount);
 
@@ -64,16 +67,13 @@ namespace BankingClient
                 {
                     main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac2, tr2);
                     main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
+                    MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
                 }
-                else {
+                else
+                {
                     main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.");
+                    MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.\nMay be there's not sufficeint funds in " + ac1);
                 }
-                
-                this.Dispose();
-            }
-            catch (Exception ex) {
-                label4.Text = "Oops! Error Happened.";
-            }
         }
     }
 }
