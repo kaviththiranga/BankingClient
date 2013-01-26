@@ -59,8 +59,16 @@ namespace BankingClient
                 Transaction tr2 = new Transaction("credit", amount);
 
                 main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac1, tr1);
-                main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac2, tr2);
-                MessageBox.Show("Money transfer is successful.");
+
+                if (tr1.Success)
+                {
+                    main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac2, tr2);
+                    main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
+                }
+                else {
+                    main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.");
+                }
+                
                 this.Dispose();
             }
             catch (Exception ex) {

@@ -60,6 +60,7 @@
             this.pinNo.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.pinNo.Location = new System.Drawing.Point(190, 143);
             this.pinNo.Name = "pinNo";
+            this.pinNo.PasswordChar = '*';
             this.pinNo.Size = new System.Drawing.Size(115, 20);
             this.pinNo.TabIndex = 2;
             // 
@@ -110,6 +111,7 @@
             this.Controls.Add(this.button1);
             this.Name = "MainWindow";
             this.Text = "Bank Client ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

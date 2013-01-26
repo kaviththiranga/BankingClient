@@ -47,5 +47,11 @@ namespace BankingClient
             transfer.StartPosition = FormStartPosition.CenterScreen;
             transfer.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ConcurrencyDemo demo = new ConcurrencyDemo(main);
+            demo.Show();
+        }
     }
 }

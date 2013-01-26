@@ -29,52 +29,6 @@ namespace BankingClient
 
         }
 
-        public void executeMultipleTrans() {
-
-            /*Thread t1 = new Thread(new ThreadStart(
-
-                        () => { server.AccountService.executeTransaction("AC00002", "1002", new Transaction("credit", 555)); }
-
-                        ));
-
-            Thread t2 = new Thread(new ThreadStart(
-
-                        () => { server.AccountService.executeTransaction("AC00002", "1002", new Transaction("credit", 1000)); }
-
-                        ));
-
-
-            Thread t3 = new Thread(new ThreadStart(
-
-                        () => { server.AccountService.executeTransaction("AC00002", "1002", new Transaction("debit", 1000)); }
-
-                        ));
-
-            Thread t4 = new Thread(new ThreadStart(
-
-                        () => {
-                                t1.Join();
-                                t2.Join();
-                                t3.Join();
-                                server.AccountService.executeTransaction("AC00002", "1002", new Transaction("debit", 445));
-                                logWindow.logger(server.AccountService.getBalance("AC00002", "1002").ToString());
-                        
-                                }
-
-                        ));
-
-            t1.Name = " Thread 1";
-            t2.Name = " Thread 2";
-            t3.Name = " Thread 3";
-            t4.Name = " Thread 4";
-            t1.Start();
-            logWindow.logger(server.AccountService.getBalance("AC00002", "1002").ToString());
-            t2.Start();
-
-            t3.Start();
-            t4.Start();*/
-        
-        }
         private void button1_Click(object sender, EventArgs e)
         {
             bool authenticated = server.AccountService.authenticateTransaction(cardNo.Text, pinNo.Text);
@@ -108,6 +62,11 @@ namespace BankingClient
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            server.terminate();
         }
     }
 }
