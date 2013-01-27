@@ -10,13 +10,16 @@ using ConcurrentBankingServer;
 
 namespace BankingClient
 {
-    public partial class ServerLog : Form
+    public partial class ClientLog : Form
     {
         public Server.Log logger;
         
-        public ServerLog()
+        public ClientLog()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
+            Left = 0;
+            Top = 0;
             logger = log;
         }
 

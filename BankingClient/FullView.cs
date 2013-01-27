@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ConcurrentBankingServer.Model;
 using System.Threading;
+using ConcurrentBankingServer.Service;
 
 namespace BankingClient
 {
@@ -15,9 +16,7 @@ namespace BankingClient
     {
         MainWindow main;
 
-        public delegate void UpdateProgress(object sender, ProgressChangedEventArgs e);
-
-        public UpdateProgress progresser;
+        public AccoutService.UpdateProgress progresser;
 
         public FullView(MainWindow main)
         {
@@ -33,14 +32,12 @@ namespace BankingClient
             comboBox1.SelectedIndex = 0;
             list.RemoveAt(comboBox1.SelectedIndex);
             comboBox2.DataSource = list;
-
             comboBox3.DataSource = main.currentCard.getAccounts();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             String accNo = (String)comboBox3.SelectedValue;
-
             DebitCard card = main.currentCard;
             String balance = main.server.AccountService.getBalance(card.CardNumber, card.Pin, accNo).ToString();
             label2.Text = "Balance of Account : " + accNo + " is\n Rs." + balance;
@@ -52,7 +49,6 @@ namespace BankingClient
             list.Remove((String)comboBox1.SelectedItem);
             comboBox2.DataSource = list;
             comboBox2.SelectedIndex = 0;
- 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -71,7 +67,6 @@ namespace BankingClient
             Transaction tr2 = new Transaction("credit", amount);
 
             main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac1, tr1);
-
             if (tr1.Success)
             {
                 main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac2, tr2);
@@ -95,6 +90,12 @@ namespace BankingClient
                                   ProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ConcurrencyDemo demo = new ConcurrencyDemo(main);
+            demo.Show();
         }
     }
 }

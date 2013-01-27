@@ -63,6 +63,7 @@
             this.pinNo.PasswordChar = '*';
             this.pinNo.Size = new System.Drawing.Size(115, 20);
             this.pinNo.TabIndex = 2;
+            this.pinNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pinNo_KeyPress);
             // 
             // label1
             // 

@@ -14,7 +14,7 @@ namespace BankingClient
 {
     public partial class MainWindow : Form
     {
-        public ServerLog logWindow;
+        public ClientLog logWindow;
         public Server server;
         public DebitCard currentCard;
 
@@ -23,8 +23,8 @@ namespace BankingClient
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            logWindow = new ServerLog();
-            server = new Server(logWindow.logger);
+            logWindow = new ClientLog();
+            server = new Server();
             logWindow.Show();
 
         }
@@ -67,6 +67,14 @@ namespace BankingClient
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             server.terminate();
+        }
+
+        private void pinNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                button1_Click(sender, new EventArgs());
+            }
         }
     }
 }
