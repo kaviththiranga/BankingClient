@@ -79,6 +79,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -90,6 +95,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -341,7 +347,9 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Controls.Add(this.label18);
+            this.groupBox3.Controls.Add(this.comboBox6);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.button7);
@@ -381,6 +389,7 @@
             this.button7.TabStop = false;
             this.button7.Text = "Purchase";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label17
             // 
@@ -432,7 +441,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(82, 76);
+            this.label18.Location = new System.Drawing.Point(82, 68);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(84, 20);
             this.label18.TabIndex = 19;
@@ -555,7 +564,7 @@
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Image = global::BankingClient.Properties.Resources.multitask;
-            this.button4.Location = new System.Drawing.Point(408, 15);
+            this.button4.Location = new System.Drawing.Point(412, 15);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(80, 80);
             this.button4.TabIndex = 37;
@@ -579,7 +588,7 @@
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Image = global::BankingClient.Properties.Resources._6;
-            this.button2.Location = new System.Drawing.Point(493, 15);
+            this.button2.Location = new System.Drawing.Point(498, 15);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(80, 80);
             this.button2.TabIndex = 22;
@@ -592,7 +601,7 @@
             this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.Image = global::BankingClient.Properties.Resources._41;
-            this.button6.Location = new System.Drawing.Point(579, 15);
+            this.button6.Location = new System.Drawing.Point(584, 15);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(80, 80);
             this.button6.TabIndex = 9;
@@ -614,11 +623,55 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel3.Controls.Add(this.label25);
+            this.panel3.Location = new System.Drawing.Point(-2, 550);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(766, 56);
+            this.panel3.TabIndex = 36;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label25.Location = new System.Drawing.Point(23, 16);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(0, 22);
+            this.label25.TabIndex = 38;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(82, 96);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(117, 20);
+            this.label26.TabIndex = 20;
+            this.label26.Text = "Select Account";
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Location = new System.Drawing.Point(204, 95);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(142, 21);
+            this.comboBox6.TabIndex = 19;
+            // 
             // FullView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 554);
+            this.ClientSize = new System.Drawing.Size(761, 603);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.pictureBox3);
@@ -659,6 +712,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -715,5 +770,10 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button button4;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox comboBox6;
     }
 }

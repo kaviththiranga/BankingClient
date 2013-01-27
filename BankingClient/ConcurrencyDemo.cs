@@ -23,6 +23,7 @@ namespace BankingClient
         {
             InitializeComponent();
             this.main = main;
+            StartPosition = FormStartPosition.CenterScreen;
             progresser = updateProgress;
         }
 
