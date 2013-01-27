@@ -27,11 +27,7 @@ namespace BankingClient
 
             if (richTextBox1.InvokeRequired)
             {
-                Invoke(new Action(
-                        delegate()
-                        {
-                            richTextBox1.AppendText((DateTime.Now).ToString() + " : " + logMsg + "\n");
-                        }));
+                Invoke(logger, logMsg);
             }
             else
             {

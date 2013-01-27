@@ -24,8 +24,9 @@ namespace BankingClient
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
             logWindow = new ClientLog();
-            server = new Server();
             logWindow.Show();
+            server = new Server();
+            
 
         }
 
@@ -39,11 +40,16 @@ namespace BankingClient
                 currentCard.setAccounts(server.AccountService.getAccountsByCard(cardNo.Text));
                 FullView myAccounts = new FullView(this);
                 this.Hide();
+                cardNo.Text = "";
+                pinNo.Text = "";
+                logWindow.logger("Authentication Successfull for Debit Card : "+currentCard.CardNumber);
                 myAccounts.Show();
             }
             else
             {
                 currentCard = null;
+                pinNo.Text = "";
+                logWindow.logger("Authentication failed for Debit Card : " + cardNo.Text + "Invalid Pin or card.");
                 MessageBox.Show("Invalid Pin or card.");
             }
 
@@ -51,7 +57,9 @@ namespace BankingClient
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-
+            cardNo.Text = "";
+            pinNo.Text = "";
+            currentCard = null;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -75,6 +83,19 @@ namespace BankingClient
             {
                 button1_Click(sender, new EventArgs());
             }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+            Dispose();
+            Application.Exit();
+        }
+
+        private void MainWindow_Shown(object sender, EventArgs e)
+        {
+           
+            currentCard = null;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace BankingClient
         {
             InitializeComponent();
             this.main = main;
+            StartPosition = FormStartPosition.CenterScreen;
             progresser = updateProgress;
         }
 
@@ -30,6 +31,8 @@ namespace BankingClient
             List<String> list = new List<string>(main.currentCard.getAccounts());
             comboBox1.DataSource = list;
             comboBox1.SelectedIndex = 0;
+            comboBox5.DataSource = CDList.getCdTitleList();
+            comboBox4.DataSource = CDList.getCdTitleList();
             list.RemoveAt(comboBox1.SelectedIndex);
             comboBox2.DataSource = list;
             comboBox3.DataSource = main.currentCard.getAccounts();
@@ -40,7 +43,7 @@ namespace BankingClient
             String accNo = (String)comboBox3.SelectedValue;
             DebitCard card = main.currentCard;
             String balance = main.server.AccountService.getBalance(card.CardNumber, card.Pin, accNo).ToString();
-            label2.Text = "Balance of Account : " + accNo + " is\n Rs." + balance;
+            label6.Text = "Balance is Rs." + balance;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,12 +74,12 @@ namespace BankingClient
             {
                 main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac2, tr2);
                 main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
-                MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
+                //MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
             }
             else
             {
                 main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.");
-                MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.\nMay be there's not sufficeint funds in " + ac1);
+                //MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.\nMay be there's not sufficeint funds in " + ac1);
             }
         }
 
@@ -89,11 +92,48 @@ namespace BankingClient
         public void updateProgress(object sender,
                                   ProgressChangedEventArgs e)
         {
-            progressBar1.Value = e.ProgressPercentage;
+           // progressBar1.Value = e.ProgressPercentage;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ConcurrencyDemo demo = new ConcurrencyDemo(main);
+            demo.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            main.Dispose();
+            this.Dispose();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+            main.currentCard = null;
+            main.Show();
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CDItem cd = CDList.getCdByTitleAndID((String)comboBox4.SelectedItem);
+
+            label21.Text = "Album : "+ cd.Title;
+            label23.Text = "by " + cd.Artist;
+            label22.Text = cd.Description;
+         
+            label24.Text = "Rs. " +cd.Price.ToString("N")+"/-";
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CDItem cd = CDList.getCdByTitleAndID((String)comboBox4.SelectedItem);
+            label18.Text = "Price: Rs." + cd.Price.ToString("N") + "/-";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
             ConcurrencyDemo demo = new ConcurrencyDemo(main);
             demo.Show();
         }
