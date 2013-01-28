@@ -91,13 +91,13 @@ namespace BankingClient
         {
             BackgroundWorker _bw = new BackgroundWorker
             {
-                WorkerReportsProgress = true,
+                WorkerReportsProgress = false,
                 WorkerSupportsCancellation = true
             };
 
             _bw.DoWork += main.server.AccountService.executeTransaction2;
 
-            _bw.ProgressChanged += updateProgress;
+           // _bw.ProgressChanged += updateProgress;
             _bw.RunWorkerCompleted += bw_RunWorkerCompleted;
 
             BackgroundWorkerArg request = new BackgroundWorkerArg();

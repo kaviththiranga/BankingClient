@@ -158,6 +158,13 @@ namespace BankingClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ajax_loader_3_ {
+            get {
+                object obj = ResourceManager.GetObject("ajax-loader(3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Home {
             get {
                 object obj = ResourceManager.GetObject("Home", resourceCulture);

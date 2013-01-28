@@ -20,15 +20,13 @@ namespace BankingClient
 
         public Notify notify;
 
-        public AccoutService.UpdateProgress progresser;
-
         public FullView(MainWindow main)
         {
             InitializeComponent();
             this.main = main;
             StartPosition = FormStartPosition.CenterScreen;
             notify = note;
-            progresser = updateProgress;
+            pictureBox8.Visible = false;
         }
 
         private void FullView_Load(object sender, EventArgs e)
@@ -46,10 +44,15 @@ namespace BankingClient
 
         private void button3_Click(object sender, EventArgs e)
         {
-            String accNo = (String)comboBox3.SelectedValue;
-            DebitCard card = main.currentCard;
-            String balance = main.server.AccountService.getBalance(card.CardNumber, card.Pin, accNo).ToString("N");
-            label6.Text = "Balance is Rs. " + balance;
+            //String accNo = (String)comboBox3.SelectedValue;
+            //DebitCard card = main.currentCard;
+            //String balance = main.server.AccountService.getBalance(card.CardNumber, card.Pin, accNo).ToString("N");
+            //label6.Text = "Balance is Rs. " + balance;
+            while (backgroundWorker2.IsBusy) {
+                Thread.Sleep(1000);
+            }
+            backgroundWorker2.RunWorkerAsync();
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,35 +65,17 @@ namespace BankingClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double amount = Double.Parse(textBox1.Text);
+            /*double amount = Double.Parse(textBox1.Text);
             String ac1 = (String)comboBox1.SelectedItem;
             String ac2 = (String)comboBox2.SelectedItem;
             Thread thread = new Thread(() => transferMoney(amount, ac1, ac2));
-            thread.Start();
-        }
+            thread.Start();*/
 
-        private void transferMoney(double amount, String ac1, String ac2)
-        {
-            DebitCard card = main.currentCard;
-            Transaction tr1 = new Transaction("debit", amount);
-            Transaction tr2 = new Transaction("credit", amount);
-
-            main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac1, tr1);
-            if (tr1.Success)
+            while (backgroundWorker3.IsBusy)
             {
-                main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac2, tr2);
-                main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
-
-                //(new Form()).
-                //MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
-                notify("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
+                Thread.Sleep(1000);
             }
-            else
-            {
-                main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.");
-                //MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.\nMay be there's not sufficeint funds in " + ac1);
-                notify("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.");
-            }
+            backgroundWorker3.RunWorkerAsync();
         }
 
         private void FullView_FormClosing(object sender, FormClosingEventArgs e)
@@ -99,11 +84,6 @@ namespace BankingClient
             this.Dispose();
         }
 
-        public void updateProgress(object sender,
-                                  ProgressChangedEventArgs e)
-        {
-           // progressBar1.Value = e.ProgressPercentage;
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -153,15 +133,6 @@ namespace BankingClient
             demo.Show();
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         public void note(String logMsg)
         {
@@ -179,20 +150,152 @@ namespace BankingClient
 
         private void button7_Click(object sender, EventArgs e)
         {
-            CDItem cd = CDList.getCdByTitleAndID((String)comboBox4.SelectedItem);
+            //pictureBox8.Visible = true;
+            //CDItem cd = CDList.getCdByTitleAndID((String)comboBox4.SelectedItem);
             
+            //DebitCard card = main.currentCard;
+
+            //Transaction tr = main.server.AccountService.executeTransaction(card.CardNumber, card.Pin,
+            //                        (String)comboBox6.SelectedItem,
+            //                         new Transaction("debit",cd.Price));
+
+            //if(tr.Success){
+            //    notify("Transaction Successfully. Please collect the cd from the tray.");
+            //}else{
+            //    notify("Transaction failed. Please try again.");
+            //}
+
+            //pictureBox8.Visible = false;
+            while (backgroundWorker1.IsBusy)
+            {
+                Thread.Sleep(1000);
+            }
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork_1(object sender, DoWorkEventArgs e)
+        {
+            
+            String title = ""; 
+            String acc = "";
+
+            if(comboBox1.InvokeRequired || comboBox6.InvokeRequired || pictureBox8.InvokeRequired){
+                Invoke(new Action(
+                        delegate()
+                        {
+                            title = (String)comboBox4.SelectedItem;
+                            acc = (String)comboBox6.SelectedItem;
+                            pictureBox8.Visible = true;
+                        }));
+            }
+            CDItem cd = CDList.getCdByTitleAndID(title);
+
             DebitCard card = main.currentCard;
 
-            Transaction tr = main.server.AccountService.executeTransaction(card.CardNumber, card.Pin,
-                                    (String)comboBox6.SelectedItem,
-                                     new Transaction("debit",cd.Price));
+            Transaction tr = main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, acc,
+                                     new Transaction("debit", cd.Price));
+            e.Result = tr;
+        }
 
-            if(tr.Success){
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Transaction tr = (Transaction)e.Result;
+
+            if (tr.Success)
+            {
                 notify("Transaction Successfully. Please collect the cd from the tray.");
-            }else{
+            }
+            else
+            {
                 notify("Transaction failed. Please try again.");
             }
 
+            if (pictureBox8.InvokeRequired)
+            {
+                Invoke(new Action(
+                        delegate()
+                        {
+                            pictureBox8.Visible = false;
+                            Refresh();
+                        }));
+            }
+            else {
+                pictureBox8.Visible = false;
+            }
+
         }
+
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            String accNo = "";
+            DebitCard card = main.currentCard;
+
+            if (comboBox3.InvokeRequired || pictureBox7.InvokeRequired)
+            {
+                Invoke(new Action(
+                        delegate()
+                        {
+                            accNo = (String)comboBox3.SelectedValue;
+                            pictureBox7.Visible = true;
+                        }));
+            }
+            Thread.Sleep(1500);
+            e.Result = main.server.AccountService.getBalance(card.CardNumber, card.Pin, accNo).ToString("N");
+            
+        }
+
+        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            label6.Text = "Balance is Rs. " + (string)e.Result;
+            pictureBox7.Visible = false;
+        }
+
+        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        {
+            double amount =0;
+            String ac1 = "";
+            String ac2 = "";
+
+            if (textBox1.InvokeRequired || comboBox1.InvokeRequired || comboBox2.InvokeRequired || pictureBox6.InvokeRequired)
+            {
+                Invoke(new Action(
+                        delegate()
+                        {
+                            amount = Double.Parse(textBox1.Text);
+                            ac1 = (String)comboBox1.SelectedItem;
+                            ac2 = (String)comboBox2.SelectedItem;
+                            pictureBox6.Visible = true;
+                        }));
+            }
+
+            DebitCard card = main.currentCard;
+            Transaction tr1 = new Transaction("debit", amount);
+            Transaction tr2 = new Transaction("credit", amount);
+
+            main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac1, tr1);
+
+            if (tr1.Success)
+            {
+                main.server.AccountService.executeTransaction(card.CardNumber, card.Pin, ac2, tr2);
+                main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
+
+                //(new Form()).
+                //MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
+                notify("Money transfer from " + ac1 + " to " + ac2 + " sucessfull.");
+            }
+            else
+            {
+                main.logWindow.logger("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.");
+                //MessageBox.Show("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.\nMay be there's not sufficeint funds in " + ac1);
+                notify("Money transfer from " + ac1 + " to " + ac2 + " unsucessfull.");
+            }
+        }
+
+        private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pictureBox6.Visible = false;
+        }
+
+  
     }
 }
