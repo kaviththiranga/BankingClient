@@ -17,14 +17,11 @@ namespace BankingClient
     {
         MainWindow main;
 
-        public AccoutService.UpdateProgress progresser;
-
         public ConcurrencyDemo(MainWindow main)
         {
             InitializeComponent();
             this.main = main;
             StartPosition = FormStartPosition.CenterScreen;
-            progresser = updateProgress;
         }
 
 
@@ -89,62 +86,11 @@ namespace BankingClient
 
         private void button2_Click(object sender, EventArgs e)
         {
-            BackgroundWorker _bw = new BackgroundWorker
-            {
-                WorkerReportsProgress = false,
-                WorkerSupportsCancellation = true
-            };
-
-            _bw.DoWork += main.server.AccountService.executeTransaction2;
-
-           // _bw.ProgressChanged += updateProgress;
-            _bw.RunWorkerCompleted += bw_RunWorkerCompleted;
-
-            BackgroundWorkerArg request = new BackgroundWorkerArg();
-
-            request.AccountNumber = "AC0001";
-            request.CardNumber = main.currentCard.CardNumber;
-            request.Pin = main.currentCard.Pin;
-            request.Transaction = new Transaction("debit", 25);
-            _bw.RunWorkerAsync(request);
-
-            /*Console.WriteLine("Press Enter in the next 5 seconds to cancel");
-            Console.ReadLine();
-            if (_bw.IsBusy) _bw.CancelAsync();
-            Console.ReadLine();*/
+            
         }
 
-        private void bw_RunWorkerCompleted(object sender,
-                                     RunWorkerCompletedEventArgs e)
-        {
-           if (e.Cancelled)
-                main.logWindow.logger("You canceled!");
-           else if (e.Error != null) { }
-                //main.logWindow.logger("Worker exception: "+((ExeTransacBackgResult)e.Result).Msg);
-            //else
-                //main.logWindow.logger("Complete: " + ((ExeTransacBackgResult)e.Result).Msg);      // from DoWork*/
-        }
 
-        public void updateProgress(object sender,
-                                 ProgressChangedEventArgs e)
-        {
-            if (progressBar1.InvokeRequired)
-            {
-                Invoke(new Action(
-                        delegate()
-                        {
-                            /*int progress = e.ProgressPercentage;
-                            int maxProgress = progressBar1.Maximum;*/
-                            progressBar1.Value = e.ProgressPercentage;//Math.Min(progress, maxProgress);
-                        }));
-            }
-            else
-            {
-                /*int progress = e.ProgressPercentage;
-                int maxProgress = progressBar1.Maximum;*/
-                progressBar1.Value = e.ProgressPercentage;//Math.Min(progress, maxProgress);
-            }
-        }
+       
 
     }
 }
