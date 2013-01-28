@@ -291,9 +291,9 @@
             this.panel1.Controls.Add(this.button5);
             this.panel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Location = new System.Drawing.Point(-2, -10);
+            this.panel1.Location = new System.Drawing.Point(5, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(766, 100);
+            this.panel1.Size = new System.Drawing.Size(751, 93);
             this.panel1.TabIndex = 22;
             // 
             // button4
@@ -301,7 +301,7 @@
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Image = global::BankingClient.Properties.Resources.multitask;
-            this.button4.Location = new System.Drawing.Point(412, 15);
+            this.button4.Location = new System.Drawing.Point(401, 5);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(80, 80);
             this.button4.TabIndex = 37;
@@ -336,9 +336,9 @@
             // 
             this.pictureBox5.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pictureBox5.Image = global::BankingClient.Properties.Resources.Home;
-            this.pictureBox5.Location = new System.Drawing.Point(-1, 7);
+            this.pictureBox5.Location = new System.Drawing.Point(-1, -1);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(93, 99);
+            this.pictureBox5.Size = new System.Drawing.Size(93, 96);
             this.pictureBox5.TabIndex = 36;
             this.pictureBox5.TabStop = false;
             // 
@@ -347,7 +347,7 @@
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Image = global::BankingClient.Properties.Resources._6;
-            this.button2.Location = new System.Drawing.Point(498, 15);
+            this.button2.Location = new System.Drawing.Point(487, 5);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(80, 80);
             this.button2.TabIndex = 22;
@@ -360,7 +360,7 @@
             this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.Image = global::BankingClient.Properties.Resources._41;
-            this.button6.Location = new System.Drawing.Point(584, 15);
+            this.button6.Location = new System.Drawing.Point(573, 5);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(80, 80);
             this.button6.TabIndex = 9;
@@ -374,7 +374,7 @@
             this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.Image = global::BankingClient.Properties.Resources._11;
-            this.button5.Location = new System.Drawing.Point(670, 15);
+            this.button5.Location = new System.Drawing.Point(659, 5);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(80, 80);
             this.button5.TabIndex = 8;
@@ -653,7 +653,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(766, 56);
             this.panel3.TabIndex = 36;
-            
             // 
             // label25
             // 
@@ -746,12 +745,13 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FullView";
             this.Text = "My Accounts - Home";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FullView_FormClosing);
             this.Load += new System.EventHandler(this.FullView_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FullView_Paint);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();

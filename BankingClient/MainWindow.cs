@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ConcurrentBankingServer;
 using ConcurrentBankingServer.Model;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace BankingClient
 {
@@ -22,6 +23,7 @@ namespace BankingClient
         public MainWindow()
         {
             InitializeComponent();
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
             StartPosition = FormStartPosition.CenterScreen;
             logWindow = new ClientLog();
             logWindow.Show();
@@ -96,6 +98,24 @@ namespace BankingClient
         {
            
             currentCard = null;
+        }
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect, // x-coordinate of upper-left corner
+            int nTopRect, // y-coordinate of upper-left corner
+            int nRightRect, // x-coordinate of lower-right corner
+            int nBottomRect, // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
+         );
+
+        private void MainWindow_Paint(object sender, PaintEventArgs e)
+        {
+
+            ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid);
+        
         }
     }
 }

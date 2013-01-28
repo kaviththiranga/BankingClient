@@ -9,11 +9,13 @@ using System.Windows.Forms;
 using ConcurrentBankingServer.Model;
 using System.Threading;
 using ConcurrentBankingServer.Service;
+using System.Runtime.InteropServices;
 
 namespace BankingClient
 {
     public partial class FullView : Form
     {
+
         MainWindow main;
 
         public delegate void Notify(string note);
@@ -23,10 +25,13 @@ namespace BankingClient
         public FullView(MainWindow main)
         {
             InitializeComponent();
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+
             this.main = main;
             StartPosition = FormStartPosition.CenterScreen;
             notify = note;
             pictureBox8.Visible = false;
+
         }
 
         private void FullView_Load(object sender, EventArgs e)
@@ -296,6 +301,23 @@ namespace BankingClient
         private void backgroundWorker3_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             pictureBox6.Visible = false;
+        }
+
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect, // x-coordinate of upper-left corner
+            int nTopRect, // y-coordinate of upper-left corner
+            int nRightRect, // x-coordinate of lower-right corner
+            int nBottomRect, // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
+         );
+
+        private void FullView_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid, Color.DarkSlateGray, 5, ButtonBorderStyle.Solid);
         }
 
   
