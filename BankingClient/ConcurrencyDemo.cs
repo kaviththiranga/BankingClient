@@ -117,12 +117,12 @@ namespace BankingClient
         private void bw_RunWorkerCompleted(object sender,
                                      RunWorkerCompletedEventArgs e)
         {
-            if (e.Cancelled)
+           if (e.Cancelled)
                 main.logWindow.logger("You canceled!");
-            else if (e.Error != null)
-                main.logWindow.logger("Worker exception: "+((ExeTransacBackgResult)e.Result).Msg);
-            else
-                main.logWindow.logger("Complete: " + ((ExeTransacBackgResult)e.Result).Msg);      // from DoWork
+           else if (e.Error != null) { }
+                //main.logWindow.logger("Worker exception: "+((ExeTransacBackgResult)e.Result).Msg);
+            //else
+                //main.logWindow.logger("Complete: " + ((ExeTransacBackgResult)e.Result).Msg);      // from DoWork*/
         }
 
         public void updateProgress(object sender,
@@ -133,12 +133,16 @@ namespace BankingClient
                 Invoke(new Action(
                         delegate()
                         {
-                            progressBar1.Value = e.ProgressPercentage;
+                            /*int progress = e.ProgressPercentage;
+                            int maxProgress = progressBar1.Maximum;*/
+                            progressBar1.Value = e.ProgressPercentage;//Math.Min(progress, maxProgress);
                         }));
             }
             else
             {
-                progressBar1.Value = e.ProgressPercentage;
+                /*int progress = e.ProgressPercentage;
+                int maxProgress = progressBar1.Maximum;*/
+                progressBar1.Value = e.ProgressPercentage;//Math.Min(progress, maxProgress);
             }
         }
 

@@ -63,7 +63,7 @@ namespace BankingClient
 
         public static CDItem getCdByTitleAndID(string title){
 
-            String id = title.Split(':')[0].Trim();
+            String id = ((title.Split(':'))[0]).Trim();
 
             foreach (CDItem cd in allCds)
             {

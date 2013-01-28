@@ -79,7 +79,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -382,7 +381,7 @@
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(110, 133);
+            this.button7.Location = new System.Drawing.Point(86, 133);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(122, 31);
             this.button7.TabIndex = 17;
@@ -623,10 +622,6 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -770,7 +765,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button button4;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
