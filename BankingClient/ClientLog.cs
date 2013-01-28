@@ -42,7 +42,7 @@ namespace BankingClient
         public void logToFile(string logMsg) {
             using (Mutex mutex = new Mutex(false, "Log File Lock"))
             {
-                if (!mutex.WaitOne(TimeSpan.FromSeconds(60), false))
+                if (!mutex.WaitOne())
                 {
                     log("Error Saving to log file");
                 }
@@ -50,6 +50,8 @@ namespace BankingClient
                 TextWriter tw = new StreamWriter(logFile, true);
                 tw.WriteLine((DateTime.Now).ToString() + " : " + logMsg);
                 tw.Close();
+
+                mutex.ReleaseMutex();
             }
         }
 

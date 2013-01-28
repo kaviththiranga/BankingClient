@@ -203,11 +203,13 @@ namespace BankingClient
 
             if (tr.Success)
             {
-                notify("Transaction Successfully. Please collect the cd from the tray.");
+                notify("Transaction Successfull. Please collect the cd from the tray.");
+                main.logWindow.logger("Transaction Successfull. Please collect the cd from the tray.");
             }
             else
             {
                 notify("Transaction failed. Please try again.");
+                main.logWindow.logger("Transaction failed. Please try again.");
             }
 
             if (pictureBox8.InvokeRequired)
